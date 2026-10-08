@@ -1,4 +1,4 @@
-import CountryRepository from '/country_repository.js'
+import CountryRepository from './country_repository.js'
 
 function show_error(error) {
     console.error(error)
