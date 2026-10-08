@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/style.css">
+    <script defer type="module" src="/script.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+    <main x-data="countries">
+        <div x-dhow="!loading">
+            <img class="img-flag"
+                x-show="country_flag_src && country_flag_alt"
+                :src="country_flag_src"
+                :alt="country_flag_alt" />
+
+            <div class="group">
+                <input class="inp-group" type="text"
+                    id="inp-country" autofocus
+                    x-model="term"
+                    @keyup.enter="get_random_country"
+                />
+                    
+                <button class="inp-group"
+                    @click="get_random_country">Continuar</button>
+            </div>
+
+            <canvas id="canvas-country"></canvas>
+        </div>
+
+        <p x-show="loading">Loading ...</p>
+    </main>
+</body>
+</html>
