@@ -8,29 +8,34 @@
     <script defer type="module" src="./script.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body>
-    <main x-data="countries">
-        <div x-dhow="!loading">
-            <img class="img-flag"
-                x-show="country_flag_src && country_flag_alt"
-                :src="country_flag_src"
-                :alt="country_flag_alt" />
+<body x-data="countries">
+    <main x-show="!loading">
+        <img class="img-flag"
+            x-show="country_flag_src"
+            :src="country_flag_src"
+            :alt="country_flag_alt" />
 
-            <div class="group">
-                <input class="inp-group" type="text"
-                    id="inp-country" autofocus
-                    x-model="term"
-                    @keyup.enter="get_random_country"
-                />
-                    
-                <button class="inp-group"
-                    @click="get_random_country">Continuar</button>
-            </div>
+        <div class="group">
+            <input class="inp-group" type="text"
+                id="inp-country" autofocus
+                x-model="term" list="datalist-countries"
+                @keyup.enter="get_random_country"
+                @input="filter_countries"
+            />
 
-            <canvas id="canvas-country"></canvas>
+            <ul id="datalist-countries" x-show="filtered_countries.length > 0">
+                <template x-for="(country, idx) in filtered_countries" :key="idx">
+                    <li x-text="country.name_por"></li>
+                </template>
+            </ul>
+
+            <button class="inp-group"
+                @click="get_random_country">Continuar</button>
         </div>
 
-        <p x-show="loading">Loading ...</p>
+        <!-- <p>Tentativas: <span x-text="tries + 1"></span></p> -->
     </main>
+
+    <p class="loading" x-show="loading">Loading ...</p>
 </body>
 </html>
